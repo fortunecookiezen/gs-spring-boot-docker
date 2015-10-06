@@ -1,5 +1,7 @@
+#FIXME this is a hack to make sure that my http Connector in SecureTomcatConfiguration
+# doesn't crash app with address already in use if I left port at 8080
 server:
-  port: 8080
+  port: 8181
 
 #TODO: figure out why I need this here and in bootstrap.yml
 spring:
@@ -16,3 +18,8 @@ endpoints:
     enabled: true
   shutdown:
     enabled: true
+
+security:
+  user:
+    name: admin
+    password: bootdemo
