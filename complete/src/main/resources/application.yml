@@ -1,13 +1,42 @@
-#FIXME this is a hack to make sure that my http Connector in SecureTomcatConfiguration
-# doesn't crash app with address already in use if I left port at 8080
-server:
-  port: 8181
 
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    key-alias: gs-spring-boot-docker-demo
+    key-store: src/main/resources/tomcat.keystore
+
+    key-store-password: bootdemo
+    protocol: TLS
+---
 #TODO: figure out why I need this here and in bootstrap.yml
 spring:
   application:
     name: testLatticeApp
+  profiles: development
+  server:
+    port: 8443
+    ssl:
+      enabled: true
+      key-alias: gs-spring-boot-docker-demo
+      key-store: src/main/resources/tomcat.keystore
 
+      key-store-password: bootdemo
+      protocol: TLS
+---
+spring:
+  application:
+    name: prodLatticeApp
+  profiles: prod
+  server:
+    port: 8443
+    ssl:
+      enabled: true
+      key-alias: gs-spring-boot-docker-demo
+      key-store: <dockerPath>/tomcat.keystore
+      key-store-password: bootdemo
+      protocol: TLS
+---
 ribbon:
   ServerListRefreshInterval: 1000
 
