@@ -43,9 +43,11 @@ public class SecureTomcatConfiguration {
    protocol.setSSLEnabled(true);
    protocol.setKeyAlias("gs-spring-boot-docker-demo");
    protocol.setKeystorePass("bootdemo");
-   protocol.setKeystoreFile(ResourceUtils
+   protocol.setKeystoreFile(System.getenv("java.net.ssl.keyStore"));
+   /*protocol.setKeystoreFile(ResourceUtils
      .getFile("src/main/resources/tomcat.keystore")
      .getAbsolutePath());
+     */
    protocol.setSslProtocol("TLS");
    return connector;
  }

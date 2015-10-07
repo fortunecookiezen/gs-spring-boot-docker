@@ -50,7 +50,7 @@ public class HelloWorldConfigurationTests {
 	public void testGreeting() throws Exception {
 		ResponseEntity<String> entity = new TestRestTemplate().getForEntity(
 				"http://localhost:" + this.port + "/", String.class);
-		assertEquals(HttpStatus.OK, entity.getStatusCode());
+		assertEquals(HttpStatus.FOUND, entity.getStatusCode());
 	}
 
 }
