@@ -48,9 +48,9 @@ public class HelloWorldConfigurationTests {
 
 	@Test
 	public void testGreeting() throws Exception {
-		ResponseEntity<String> entity = new TestRestTemplate().getForEntity(
-				"http://localhost:" + this.port + "/", String.class);
-		assertEquals(HttpStatus.FOUND, entity.getStatusCode());
+		ResponseEntity<String> entity = new TestRestTemplate("admin","bootdemo").getForEntity(
+				"https://localhost:" + this.port + "/", String.class);
+		assertEquals(HttpStatus.OK, entity.getStatusCode());
 	}
 
 }
