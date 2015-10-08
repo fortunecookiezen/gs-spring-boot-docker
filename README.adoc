@@ -91,7 +91,7 @@ In the Maven `pom.xml` you should add a new plugin like this (see https://github
 [source,xml,indent=0]
 ----
     <properties>
-  	    <docker.image.prefix>springio</docker.image.prefix>
+  	    <docker.image.prefix>fortunecookiezen</docker.image.prefix>
     </properties>
     <build>
         <plugins>
@@ -102,7 +102,7 @@ include::complete/pom.xml[tag=plugin]
 
 The configuration specifies 3 things:
 
-* The image name (or tag), which will end up here as `springio/gs-spring-boot-docker`
+* The image name (or tag), which will end up here as `fortunecookiezen/gs-spring-boot-docker`
 * The directory in which to find the Dockerfile
 * The resources (files) to copy from the target directory to the docker build (alongside the Dockerfile) - we only need the jar file in this example
 
@@ -112,10 +112,10 @@ You can build a tagged docker image and then push it to a remote repository usin
 
 ----
 $ mvn package docker:build
-$ docker push springio/gs-spring-boot-docker
+$ docker push fortunecookiezen/gs-spring-boot-docker
 ----
 
-NOTE: You don't have to push your newly minted Docker image to actually run it. Moreover the "push" command will fail if you aren't a member of the "springio" organization on Dockerhub. Change the build configuration and the command line to your own username instead of "springio" to make it actually work.
+NOTE: You don't have to push your newly minted Docker image to actually run it. Moreover the "push" command will fail if you aren't a member of the "fortunecookiezen" organization on Dockerhub. Change the build configuration and the command line to your own username instead of "fortunecookiezen" to make it actually work.
 
 NOTE: `package` MUST be run before `docker:build`. Otherwise, it will fail.
 
@@ -133,7 +133,7 @@ include::complete/build.gradle[tag=build]
     }
 }
 
-group = 'springio'
+group = 'fortunecookiezen'
 
 ...
 include::complete/build.gradle[tag=plugin]
@@ -143,7 +143,7 @@ include::complete/build.gradle[tag=task]
 
 The configuration specifies 3 things:
 
-* the image name (or tag) is set up from the jar file properties, which will end up here as `springio/gs-spring-boot-docker`
+* the image name (or tag) is set up from the jar file properties, which will end up here as `fortunecookiezen/gs-spring-boot-docker`
 * the directory in which to find the Dockerfile
 * the jar file is copied from the build directory to the docker build (alongside the Dockerfile) - we only need the jar file in this example
 
@@ -155,21 +155,21 @@ $ ./gradlew build buildDocker
 
 === After the Push
 
-The "docker push" will fail for you (unless you are part of the "springio" organization at Dockerhub), but if you change the configuration to match your own docker ID then it should succeed, and you will have a new tagged, deployed image.
+The "docker push" will fail for you (unless you are part of the "fortunecookiezen" organization at Dockerhub), but if you change the configuration to match your own docker ID then it should succeed, and you will have a new tagged, deployed image.
 
 [NOTE]
 ====
 You do NOT have to register with docker or publish anything to run a docker image. You still have a locally tagged image, and you can run it like this:
 
 ----
-$ docker run -p 8080:8080 -t springio/gs-spring-boot-docker
+$ docker run -p 8080:8080 -t fortunecookiezen/gs-spring-boot-docker
 ....
 2015-03-31 13:25:48.035  INFO 1 --- [           main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8080 (http)
 2015-03-31 13:25:48.037  INFO 1 --- [           main] hello.Application                        : Started Application in 5.613 seconds (JVM running for 7.293)
 ----
 ====
 
-The application is then available on http://localhost:8080 (visit that and it says "Hello Docker World"). To make sure the whole process is really working, change the prefix from "springio" to something else (e.g. `${env.USER}`) and go through it again from the build through to the docker run. 
+The application is then available on http://localhost:8080 (visit that and it says "Hello Docker World"). To make sure the whole process is really working, change the prefix from "fortunecookiezen" to something else (e.g. `${env.USER}`) and go through it again from the build through to the docker run. 
 
 [NOTE]
 ====
@@ -192,7 +192,7 @@ When it is running you can see in the list of containers, e.g:
 ----
 $ docker ps
 CONTAINER ID        IMAGE                             COMMAND                CREATED             STATUS              PORTS                    NAMES
-81c723d22865        springio/gs-spring-boot-docker:latest   "java -jar /app.jar"   34 seconds ago      Up 33 seconds       0.0.0.0:8080->8080/tcp   goofy_brown         
+81c723d22865        fortunecookiezen/gs-spring-boot-docker:latest   "java -jar /app.jar"   34 seconds ago      Up 33 seconds       0.0.0.0:8080->8080/tcp   goofy_brown         
 ----
 
 and to shut it down again you can `docker stop` with the container ID from the listing above (yours will be different):
@@ -212,19 +212,19 @@ $ docker rm 81c723d22865
 Running your freshly minted Docker image with Spring profiles is as easy as passing an environment variable to the Docker run command
 
 ----
-$ docker run -e "SPRING_PROFILES_ACTIVE=prod" -p 8443:8443 -t springio/gs-spring-boot-docker
+$ docker run -e "SPRING_PROFILES_ACTIVE=production" -p 8443:8443 -t fortunecookiezen/gs-spring-boot-docker
 ----
 
 or
 
 ----
-$ docker run -e "SPRING_PROFILES_ACTIVE=dev" -p 8443:8443 -t springio/gs-spring-boot-docker
+$ docker run -e "SPRING_PROFILES_ACTIVE=development" -p 8443:8443 -t fortunecookiezen/gs-spring-boot-docker
 ----
 
-To make the test cases work, because we have introduced ssl support, you will need to import the tomcat.keyfile into your local jre cacert file
+To make the test cases work, because we have introduced ssl support, you will need to import the server's public key into your local jre cacert file
 
 ----
-sudo keytool -import -file gs-spring-boot-docker-demo-certificate.cer -alias docker-demo-cert -keystore /var/opt/OpenJDK-1.8.0.51-bin/jre/lib/security/cacerts
+sudo keytool -import -file gs-spring-boot-docker-demo-certificate.cer -alias docker-demo-cert -keystore $JAVA_HOME/lib/security/cacerts
 ----
 
 == Summary
