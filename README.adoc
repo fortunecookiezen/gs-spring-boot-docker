@@ -212,13 +212,19 @@ $ docker rm 81c723d22865
 Running your freshly minted Docker image with Spring profiles is as easy as passing an environment variable to the Docker run command
 
 ----
-$ docker run -e "SPRING_PROFILES_ACTIVE=prod" -p 8080:8080 -t springio/gs-spring-boot-docker
+$ docker run -e "SPRING_PROFILES_ACTIVE=prod" -p 8443:8443 -t springio/gs-spring-boot-docker
 ----
 
 or
 
 ----
-$ docker run -e "SPRING_PROFILES_ACTIVE=dev" -p 8080:8080 -t springio/gs-spring-boot-docker
+$ docker run -e "SPRING_PROFILES_ACTIVE=dev" -p 8443:8443 -t springio/gs-spring-boot-docker
+----
+
+To make the test cases work, because we have introduced ssl support, you will need to import the tomcat.keyfile into your local jre cacert file
+
+----
+sudo keytool -import -file gs-spring-boot-docker-demo-certificate.cer -alias docker-demo-cert -keystore /var/opt/OpenJDK-1.8.0.51-bin/jre/lib/security/cacerts
 ----
 
 == Summary
