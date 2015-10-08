@@ -10,30 +10,26 @@ server:
 ---
 #TODO: figure out why I need this here and in bootstrap.yml
 spring:
-  application:
-    name: testLatticeApp
   profiles: development
-  server:
-    port: 8443
-    ssl:
-      enabled: true
-      key-alias: gs-spring-boot-docker-demo
-      key-store: src/main/resources/tomcat.keystore
-      key-store-password: bootdemo
-      protocol: TLS
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    key-alias: gs-spring-boot-docker-demo
+    key-store: src/main/resources/tomcat.keystore
+    key-store-password: bootdemo
+    protocol: TLS
 ---
 spring:
-  application:
-    name: prodLatticeApp
-  profiles: prod
-  server:
-    port: 8443
-    ssl:
-      enabled: true
-      key-alias: gs-spring-boot-docker-demo
-      key-store: <dockerPath>/tomcat.keystore
-      key-store-password: bootdemo
-      protocol: TLS
+  profiles: production
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    key-alias: gs-spring-boot-docker-demo
+    key-store: /tomcat.keystore
+    key-store-password: bootdemo
+    protocol: TLS
 ---
 ribbon:
   ServerListRefreshInterval: 1000
