@@ -74,8 +74,8 @@ dependencies {
     testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
     testCompile "org.spockframework:spock-spring:1.0-groovy-2.4"
 
-    // compile("org.springframework.cloud:spring-cloud-starter-config")
-    // compile("org.springframework.cloud:spring-cloud-starter-eureka")
+    compile("org.springframework.cloud:spring-cloud-starter-config")
+    compile("org.springframework.cloud:spring-cloud-starter-eureka")
 
 
 
