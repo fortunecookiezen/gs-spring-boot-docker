@@ -65,6 +65,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.cloud:spring-cloud-starter-config")
     compile("org.springframework.cloud:spring-cloud-starter-eureka")
+    compile ("org.springframework.integration:spring-integration-twitter:4.2.0.RELEASE")
+		compile ("log4j:log4j:1.2.17")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 
 }
