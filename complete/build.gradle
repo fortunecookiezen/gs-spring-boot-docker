@@ -16,7 +16,11 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+
+apply plugin: "groovy"
+
 apply plugin: "io.spring.dependency-management"
+
 // tag::plugin[]
 apply plugin: 'docker'
 // end::plugin[]
@@ -56,7 +60,7 @@ targetCompatibility = 1.8
 
 dependencyManagement {
      imports {
-          mavenBom 'org.springframework.cloud:spring-cloud-netflix:1.0.3.RELEASE'
+         mavenBom 'org.springframework.cloud:spring-cloud-netflix:1.0.3.RELEASE'
      }
 }
 
@@ -67,7 +71,15 @@ dependencies {
     compile("org.springframework.cloud:spring-cloud-starter-eureka")
     compile ("org.springframework.integration:spring-integration-twitter:4.2.0.RELEASE")
 		compile ("log4j:log4j:1.2.17")
+
     testCompile("org.springframework.boot:spring-boot-starter-test")
+    //force groovy version this as 2.3.11 is in spring-cloud-netflix and breaking spock
+    testCompile "org.codehaus.groovy:groovy:2.4.4"
+    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+    testCompile "org.spockframework:spock-spring:1.0-groovy-2.4"
+
+
+
 
 }
 
